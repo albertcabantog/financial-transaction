@@ -53,6 +53,8 @@ java -jar target/transaction-analyser-1.0-SNAPSHOT-jar-with-dependencies.jar "AC
 * `"20/10/2018 12:00:00"` - this is the date from parameter
 * `"20/10/2018 19:00:00"` - this is the date to parameter
 
+_Please note the parameters are enclosed with double quotes._
+
 Sample output:
 ```
 Input arguments:
@@ -63,6 +65,12 @@ Output:
 Relative balance for the period is: -25.00
 Number of transactions included is: 1
 ```
+
+## Changing the list of input transaction ##
+The default list of the transaction are listed in the **transaction_list.csv** file.  This file is located in:
+`transaction-analyser/src/main/resources`
+
+To update the contents, edit this file and package again the application.
 
 ## Assumptions ##
 * Input file and records are all in a valid format
