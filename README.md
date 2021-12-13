@@ -21,7 +21,7 @@ git clone https://github.com/albertcabantog/financial-transaction.git
 * Run Maven inside the financial-transaction/transaction-analyser directory to build the application without executing the unit tests
 
 ```
-cd transaction-analyser
+cd financial-transaction/transaction-analyser
 mvn clean -DskipTests
 ```
 
