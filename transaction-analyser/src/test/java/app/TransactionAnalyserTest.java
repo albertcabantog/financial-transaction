@@ -60,8 +60,8 @@ public class TransactionAnalyserTest {
         TransactionAnalyser analyser = new TransactionAnalyser();
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC998877")
-                .from(LocalDateTime.now())
-                .to(LocalDateTime.parse("20/10/2018 18:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .to(LocalDateTime.now())
+                .from(LocalDateTime.parse("20/10/2018 18:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
                 .build();
         QueryResponse response = analyser.getQueryResponse(request);
         assertTrue(Objects.nonNull(response));

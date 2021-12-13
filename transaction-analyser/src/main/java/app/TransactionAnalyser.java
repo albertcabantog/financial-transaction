@@ -32,6 +32,7 @@ public class TransactionAnalyser {
                 .from(analyser.convert(from))
                 .to(analyser.convert(to))
                 .build();
+
         var response = analyser.getQueryResponse(request);
         System.out.println("Input arguments:");
         System.out.printf("accountId: %s\nfrom: %s\nto: %s", request.getAccountId(), from, to);
@@ -41,7 +42,7 @@ public class TransactionAnalyser {
     }
 
     private LocalDateTime convert(String date) {
-        LocalDateTime localDateTime = null;
+        LocalDateTime localDateTime;
         try {
             localDateTime = LocalDateTime.parse(date, DATE_TIME_FORMATTER);
         } catch (Exception e) {
@@ -63,6 +64,11 @@ public class TransactionAnalyser {
     }
 
     public QueryResponse getQueryResponse(QueryRequest request) {
+        boolean datesValid = isValidTransactionDateRange(request.getFrom(), request.getTo());
+        if (!datesValid) {
+            throw new IllegalArgumentException("Date from should be before Date to");
+        }
+
         var loader = new TransactionLoader();
         var transactions = loader.getTransactions();
         var filteredData = transactions.stream().filter(transactionRecord ->
@@ -84,7 +90,6 @@ public class TransactionAnalyser {
             }
         }
 
-        var response = QueryResponse.builder().balance(balance).transactionCount(transactionCounter).build();
-        return response;
+        return QueryResponse.builder().balance(balance).transactionCount(transactionCounter).build();
     }
 }
