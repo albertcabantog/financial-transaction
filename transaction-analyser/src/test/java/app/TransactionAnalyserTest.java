@@ -2,6 +2,7 @@ package app;
 
 import domain.QueryRequest;
 import domain.QueryResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,23 +15,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TransactionAnalyserTest {
 
+    private TransactionAnalyser analyser;
+
+    @BeforeEach
+    public void init() {
+        analyser = new TransactionAnalyser();
+    }
+
     @Test
     public void givenAccountIdNotExist_whenQueryTransaction_thenCheckFail() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         String testAccountId = "NOT-A-VALID-ACCOUNT";
         assertFalse(analyser.isValidAccountId(testAccountId));
     }
 
     @Test
     public void givenValidAccountId_whenQueryTransaction_thenPass() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         String testAccountId = "ACC334455";
         assertTrue(analyser.isValidAccountId(testAccountId));
     }
 
     @Test
     public void givenValidTransactionDateRange_whenQueryTransaction_thenCheckPass() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         LocalDateTime from = LocalDateTime.now();
         LocalDateTime to = from.plusDays(2);
 
@@ -39,7 +44,6 @@ public class TransactionAnalyserTest {
 
     @Test
     public void givenInvalidTransactionDateRange_whenQueryTransaction_thenCheckFail() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         LocalDateTime from = LocalDateTime.now();
         LocalDateTime to = from.plusDays(2);
 
@@ -48,7 +52,6 @@ public class TransactionAnalyserTest {
 
     @Test
     public void givenInvalidTransactionDateTimeRange_whenQueryTransaction_thenCheckFail() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         LocalDateTime from = LocalDateTime.now();
         LocalDateTime to = from.plus(5, ChronoUnit.MINUTES);
 
@@ -57,7 +60,6 @@ public class TransactionAnalyserTest {
 
     @Test
     public void givenQueryForPaymentTransaction_whenQueryTransaction_thenReturnBalanceAndTransactionCount() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC998877")
                 .to(LocalDateTime.now())
@@ -71,7 +73,6 @@ public class TransactionAnalyserTest {
 
     @Test
     public void givenQueryForAccountWithoutTransaction_whenQueryTransaction_thenReturnZeroTransactionCount() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC998877")
                 .from(LocalDateTime.now())
@@ -84,7 +85,6 @@ public class TransactionAnalyserTest {
 
     @Test
     public void givenQueryForAccountWithReversalTransaction_whenQueryTransaction_thenReturnBalanceAndTransactionCount() {
-        TransactionAnalyser analyser = new TransactionAnalyser();
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC334455")
                 .from(LocalDateTime.parse("20/10/2018 12:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
