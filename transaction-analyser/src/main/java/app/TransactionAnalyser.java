@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class TransactionAnalyser {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    public static final String REVERSAL = "REVERSAL";
 
     public static void main(String[] args) {
         if (args.length < 3) {
@@ -75,7 +76,7 @@ public class TransactionAnalyser {
                 transactionRecord.getFromAccountId().trim().equals(request.getAccountId()) &&
                         ((transactionRecord.getCreateAt().isAfter(request.getFrom()) && transactionRecord.getCreateAt().isBefore(request.getTo())) ||
                                 (transactionRecord.getCreateAt().isEqual(request.getFrom()) || transactionRecord.getCreateAt().isEqual(request.getTo())) ||
-                                transactionRecord.getTransactionType().trim().equals("REVERSAL"))
+                                transactionRecord.getTransactionType().trim().equals(REVERSAL))
 
         ).collect(Collectors.toList());
         BigDecimal balance = BigDecimal.ZERO;
