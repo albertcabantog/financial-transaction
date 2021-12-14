@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+import static app.TransactionAnalyser.DATE_TIME_FORMATTER;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TransactionAnalyserTest {
@@ -63,7 +63,7 @@ public class TransactionAnalyserTest {
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC998877")
                 .to(LocalDateTime.now())
-                .from(LocalDateTime.parse("20/10/2018 18:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .from(LocalDateTime.parse("20/10/2018 18:00:00", DATE_TIME_FORMATTER))
                 .build();
         QueryResponse response = analyser.getQueryResponse(request);
         assertTrue(Objects.nonNull(response));
@@ -87,8 +87,8 @@ public class TransactionAnalyserTest {
     public void givenQueryForAccountWithReversalTransaction_whenQueryTransaction_thenReturnBalanceAndTransactionCount() {
         QueryRequest request = QueryRequest.builder()
                 .accountId("ACC334455")
-                .from(LocalDateTime.parse("20/10/2018 12:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
-                .to(LocalDateTime.parse("20/10/2018 19:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .from(LocalDateTime.parse("20/10/2018 12:00:00", DATE_TIME_FORMATTER))
+                .to(LocalDateTime.parse("20/10/2018 19:00:00", DATE_TIME_FORMATTER))
                 .build();
         QueryResponse response = analyser.getQueryResponse(request);
         assertTrue(Objects.nonNull(response));
