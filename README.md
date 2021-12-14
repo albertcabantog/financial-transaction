@@ -22,7 +22,7 @@ git clone https://github.com/albertcabantog/financial-transaction.git
 
 ```
 cd financial-transaction/transaction-analyser
-mvn clean -DskipTests
+mvn clean install -DskipTests
 ```
 
 ## Running the unit tests ##
